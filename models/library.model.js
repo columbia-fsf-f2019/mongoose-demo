@@ -6,7 +6,8 @@ const LibrarySchema = new Schema({
     type: String,
     unique: true,
     required: 'Name required'
-  }
+  },
+  books: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
 });
 
 const Library = mongoose.model('Library', LibrarySchema);
