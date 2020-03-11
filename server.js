@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Book = require('./models/book.model');
+const Library = require('./models/library.model');
 
 mongoose.connect('mongodb://localhost/library', {
   useNewUrlParser: true,
@@ -23,6 +24,21 @@ app
   .post(async (req, res) => {
     const result = await Book.create(req.body);
     res.json(result);
+  });
+
+app
+  .route('/api/libraries')
+  .get(async (req, res) => {
+    const libraries = await Library.find();
+    res.json(libraries);
+  })
+  .post(async (req, res) => {
+    try {
+      const result = await Library.create(req.body);
+      res.json(result);
+    } catch (err) {
+      res.json(err);
+    }
   });
 
 app.listen(3000, () => {
