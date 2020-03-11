@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const db = require('./models');
 
-mongoose.connect('mongodb://localhost/library', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/library', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -56,6 +56,6 @@ app
     }
   });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('app listening at http://localhost:3000');
 });
